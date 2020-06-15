@@ -11,6 +11,9 @@ void gspSerialResponse::update() {
         case GSP_SR_MODE_CALLBACK:
             cbProcessor(szResponse);
         break;
+        case GSP_SR_MODE_CALLBACK_NONSTD:
+            cbProcessorNonstd(szResponse);
+        break;        
         case GSP_SR_MODE_REPLACE:
             strcpy(*_replaceMe,szResponse);
         break;
@@ -78,13 +81,23 @@ void gspSerialResponse::reset() {
     parseWin=0;
 }
 
-gspSerialResponse::gspSerialResponse(const char* _szHeader, uint8_t _iCharsToGrab,void (* _cbProcessor)(char *))
+//gspSerialResponse::gspSerialResponse(const char* _szHeader, uint8_t _iCharsToGrab,void (* _cbProcessor)(char *))
+//:gspGrouped() {
+//    szHeader=_szHeader;
+//    iCharsToGrab=_iCharsToGrab;
+//    cbProcessor=_cbProcessor;
+//    cursor=0;
+//    operationmode=GSP_SR_MODE_CALLBACK;
+//    szResponse[0]=0;
+//}
+
+gspSerialResponse::gspSerialResponse(const char* _szHeader, uint8_t _iCharsToGrab,nonstd::function<void (char *)> _callback)
 :gspGrouped() {
     szHeader=_szHeader;
     iCharsToGrab=_iCharsToGrab;
-    cbProcessor=_cbProcessor;
+    cbProcessorNonstd=_callback;
     cursor=0;
-    operationmode=GSP_SR_MODE_CALLBACK;
+    operationmode=GSP_SR_MODE_CALLBACK_NONSTD;
     szResponse[0]=0;
 }
 

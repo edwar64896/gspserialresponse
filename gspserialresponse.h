@@ -3,9 +3,12 @@
 
 #include "Arduino.h"
 #include "gspgrouped.h"
+#include "nonstd.h"
 
 #define GSP_SR_MODE_REPLACE 1
 #define GSP_SR_MODE_CALLBACK 2
+#define GSP_SR_MODE_CALLBACK_NONSTD 3
+
 
 class gspSerialResponse: public gspGrouped {
 
@@ -18,13 +21,19 @@ class gspSerialResponse: public gspGrouped {
         ) {
             gspSerialResponse * instance = new gspSerialResponse(_szInput,_nChars,_callback);
             gspGrouped::register_instance(instance);
-        return instance;
-    }
+            return instance;
+        }
+
+//        gspSerialResponse(  
+//            const char* szInput /*Parser input - this is the string we look for*/, 
+//            uint8_t nChars /*number of characters to pull from the serial stream after the parser input has passed */,
+//            void (* callback)(char *) /*callback to invoke upon successful parse*/
+//        );
 
         gspSerialResponse(  
             const char* szInput /*Parser input - this is the string we look for*/, 
             uint8_t nChars /*number of characters to pull from the serial stream after the parser input has passed */,
-            void (* callback)(char *) /*callback to invoke upon successful parse*/
+            nonstd::function<void (char *)> _callback /*callback to invoke upon successful parse*/
         );
 
         gspSerialResponse(  
@@ -50,12 +59,14 @@ class gspSerialResponse: public gspGrouped {
         void setFirstInstance(gspGrouped * fi) {gspSerialResponse::firstInstance = fi;}
         gspGrouped * getFirstInstance() {return gspSerialResponse::firstInstance;}
         static gspGrouped * firstInstance;
+        nonstd::function<void (char *)> cbProcessorNonstd;
 
     private:
 
         int operationmode=0;
 
         void (*cbProcessor)(char *) = nullptr;
+
         const char* szHeader=nullptr;
         char* szResponse=new char[20];
         uint8_t iCharsToGrab=0;

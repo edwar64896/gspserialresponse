@@ -17,7 +17,7 @@ class gspSerialResponse: public gspGrouped {
         static gspSerialResponse * makeOne(
                             const char* _szInput /*Parser input - this is the string we look for*/, 
                             uint8_t _nChars /*number of characters to pull from the serial stream after the parser input has passed */,
-                            void (* _callback)(char *) /*callback to invoke upon successful parse*/
+                            nonstd::function<void (char *)> _callback /*callback to invoke upon successful parse*/
         ) {
             gspSerialResponse * instance = new gspSerialResponse(_szInput,_nChars,_callback);
             gspGrouped::register_instance(instance);
@@ -65,7 +65,7 @@ class gspSerialResponse: public gspGrouped {
 
         int operationmode=0;
 
-        void (*cbProcessor)(char *) = nullptr;
+        //void (*cbProcessor)(char *) = nullptr;
 
         const char* szHeader=nullptr;
         char* szResponse=new char[20];

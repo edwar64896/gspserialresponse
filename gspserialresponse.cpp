@@ -9,7 +9,7 @@ char * gspSerialResponse::getLastResponse() {
 void gspSerialResponse::update() {
     switch (operationmode) {
         case GSP_SR_MODE_CALLBACK:
-            cbProcessor(szResponse);
+       //     cbProcessor(szResponse);
         break;
         case GSP_SR_MODE_CALLBACK_NONSTD:
             cbProcessorNonstd(szResponse);

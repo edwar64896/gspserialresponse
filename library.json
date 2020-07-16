@@ -1,0 +1,29 @@
+{
+    "name": "gspswitch",
+    "keywords": "switch",
+    "description": "Arduino library for responding to serial events",
+    "authors":
+    {
+        "name": "Mark Edwards",
+        "email": "mark.p.edwards@gmail.com",
+        "url": "www.greensideproductions.com.au"
+    },
+    "version":"0.3",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/edwar64896/gspserialresponse#0.3"
+    },
+    "frameworks": "arduino",
+    "platforms": "atmelavr",
+    "dependencies": [
+        {
+            "name":"gspgrouped",
+            "version":"https://github.com/edwar64896/gspgrouped#v0.3"
+        },
+        {
+            "name":"functional-avr",
+            "version":"https://github.com/edwar64896/functional-avr#0.1"
+        }
+    ]
+}

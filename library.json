@@ -19,7 +19,7 @@
     "dependencies": [
         {
             "name":"gspgrouped",
-            "version":"https://github.com/edwar64896/gspgrouped#v0.1"
+            "version":"https://github.com/edwar64896/gspgrouped#0.1"
         },
         {
             "name":"functional-avr",
